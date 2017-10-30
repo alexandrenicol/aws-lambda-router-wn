@@ -1,0 +1,28 @@
+{
+  "name": "aws-lambda-router-wn",
+  "version": "0.0.1",
+  "description": "HTTP Router for AWS Lambda+AWS Api Gateway.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandrenicol/aws-lambda-router-wn.git"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "router",
+    "http",
+    "gateway",
+    "api",
+    "amazon"
+  ],
+  "author": "alexandrenicol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexandrenicol/aws-lambda-router-wn/issues"
+  },
+  "homepage": "https://github.com/alexandrenicol/aws-lambda-router-wn#readme"
+}

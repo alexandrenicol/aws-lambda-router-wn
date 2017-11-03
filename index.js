@@ -24,35 +24,43 @@ class AWSLambdaRouter {
 
     const method = event.httpMethod.toLowerCase();
 
-    const functionToLaunch = this.functions[method][path];
+    const functionToLaunch = this.functions[method][path].callback;
+    const functionOptions = this.functions[method][path].options;
 
-    const request = this.__formatRequest();
+    this.__formatRequest(functionOptions);
 
-    const response = this.__done.bind(this)
+    const response = this.__done.bind(this, functionOptions);
 
-    functionToLaunch(request, response);
+    functionToLaunch(this.event, response);
 
   }
 
-  route(_method, _path, _callback) {
+  route(_method, _path, _callback, _options = {}) {
     const method = _method.toLowerCase();
     const path = this.__validateRoute(_path);
-    this.functions[method][path] = _callback;
+    this.functions[method][path] = {
+      callback: _callback,
+      options: _options
+    }
   }
 
-  get(_path, _callback) {
-    this.route('get', _path, _callback)
+  get(_path, _callback, _options = {}) {
+    this.route('get', _path, _callback, _options)
   }
-  post(_path, _callback) {
-    this.route('post', _path, _callback)
+  post(_path, _callback, _options = {}) {
+    this.route('post', _path, _callback, _options)
   }
-  delete(_path, _callback) {
-    this.route('delete', _path, _callback)
+  delete(_path, _callback, _options = {}) {
+    this.route('delete', _path, _callback, _options)
   }
 
-  __formatRequest() {
+  __formatRequest(options) {
     let request = this.event.body;
-    switch (this.bodyType) {
+
+    let bodyType = this.bodyType;
+    if (options.bodyType) bodyType = options.bodyType;
+
+    switch (bodyType) {
       case 'application/json':
         request = JSON.parse(request);
         break;
@@ -67,7 +75,7 @@ class AWSLambdaRouter {
       default:
         break;
     }
-    return request;
+    this.event.body = request;
   }
 
   __validateRoute(_path) {
@@ -88,16 +96,18 @@ class AWSLambdaRouter {
     return route;
   }
 
-  __done(_err, _res) {
+  __done(__options, _err, _res) {
     let response = _res;
-    if (this.responseType === 'application/json'){
+    let responseType = this.responseType;
+    if (__options.responseType) responseType = __options.responseType;
+    if (responseType === 'application/json'){
       response = JSON.stringify(_res);
     }
     this.callback(null, {
       statusCode: _err ? '400' : '200',
       body: _err ? _err.message : response,
       headers: {
-        'Content-Type': this.responseType,
+        'Content-Type': responseType,
       },
     })
   }

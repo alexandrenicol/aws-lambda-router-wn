@@ -22,7 +22,7 @@ class AWSLambdaRouter {
 
     const path = this.__whatIsTheRoute();
 
-    const method = event.httpMethod.toLowerCase();
+    const method = this.event.httpMethod.toLowerCase();
 
     const functionToLaunch = this.functions[method][path].callback;
     const functionOptions = this.functions[method][path].options;
@@ -38,6 +38,9 @@ class AWSLambdaRouter {
   route(_method, _path, _callback, _options = {}) {
     const method = _method.toLowerCase();
     const path = this.__validateRoute(_path);
+
+    if (!this.functions[method]) throw new Error(`${_method} is not a valid HTTP Method`);
+
     this.functions[method][path] = {
       callback: _callback,
       options: _options
@@ -56,26 +59,28 @@ class AWSLambdaRouter {
 
   __formatRequest(options) {
     let request = this.event.body;
+    if (request) {
 
-    let bodyType = this.bodyType;
-    if (options.bodyType) bodyType = options.bodyType;
+      let bodyType = this.bodyType;
+      if (options.bodyType) bodyType = options.bodyType;
 
-    switch (bodyType) {
-      case 'application/json':
-        request = JSON.parse(request);
-        break;
-      case 'application/x-www-form-urlencoded':
-        let pairs = request.split('&');
-        request = {};
-        pairs.forEach(function(pair) {
-          pair = pair.split('=');
-          request[pair[0]] = decodeURIComponent(pair[1] || '');
-        });
-        break;
-      default:
-        break;
+      switch (bodyType) {
+        case 'application/json':
+          request = JSON.parse(request);
+          break;
+        case 'application/x-www-form-urlencoded':
+          let pairs = request.split('&');
+          request = {};
+          pairs.forEach(function(pair) {
+            pair = pair.split('=');
+            request[pair[0]] = decodeURIComponent(pair[1] || '');
+          });
+          break;
+        default:
+          break;
+      }
+      this.event.body = request;
     }
-    this.event.body = request;
   }
 
   __validateRoute(_path) {

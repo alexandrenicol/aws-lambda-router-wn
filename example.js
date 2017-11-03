@@ -4,7 +4,7 @@ const AWSLambdaRouter = require('aws-lambda-router-wn');
 const app = new AWSLambdaRouter();
 
 app.post('/', (request, response) => {
-  response(null, {});
+  response(null, true);
 });
 
 app.get('/hello', (request, response) => {

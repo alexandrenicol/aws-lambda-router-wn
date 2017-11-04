@@ -110,9 +110,7 @@ describe('AWSLambdaRouter - execution stage', function () {
 
     const event = {
       httpMethod: 'GET',
-      pathParameters:{
-        path: 'test'
-      }
+      path: '/test'
     };
 
     const assertCallback = (something, response) => {
@@ -131,7 +129,7 @@ describe('AWSLambdaRouter - execution stage', function () {
 
   it('should take in consideration functions options', function() {
     const app = new AWSLambdaRouter();
-    app.route('POST','/test', (request, response) => {
+    app.route('POST','/', (request, response) => {
       const param = request.body;
       response(null, `<div>foo:${param.foo}</div>`);
     }, {
@@ -141,9 +139,7 @@ describe('AWSLambdaRouter - execution stage', function () {
 
     const event = {
       httpMethod: 'POST',
-      pathParameters:{
-        path: 'test'
-      },
+      path: '/',
       body: 'foo=bar'
     };
 

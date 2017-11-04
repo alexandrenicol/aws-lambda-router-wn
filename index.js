@@ -85,7 +85,7 @@ class AWSLambdaRouter {
 
   __validateRoute(_path) {
     let path = _path;
-    if (path.indexOf("/") < 0) {
+    if (!path.startsWith("/")) {
       path = `/${path}`;
     }
     return path;
@@ -93,10 +93,8 @@ class AWSLambdaRouter {
 
   __whatIsTheRoute() {
     let route = "/";
-    if (this.event.pathParameters){
-      if (this.event.pathParameters.path) {
-        route = `/${this.event.pathParameters.path}`;
-      }
+    if (this.event.path){
+      route = this.event.path;
     }
     return route;
   }

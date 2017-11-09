@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-local": "mocha",
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov -t 1ee55559-ada0-40c2-b87d-22f806b79776"
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec  "
   },
   "repository": {
     "type": "git",

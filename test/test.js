@@ -104,7 +104,7 @@ describe('AWSLambdaRouter - declaration stage', function() {
 describe('AWSLambdaRouter - execution stage', function () {
   it('should execute the requested function when handling events', function() {
     const app = new AWSLambdaRouter();
-    app.route('GET','/test', (request, response) => {
+    app.route('GET','test', (request, response) => {
       response(null, true);
     });
 

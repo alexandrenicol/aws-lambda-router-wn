@@ -22,7 +22,8 @@
   ],
   "devDependencies": {
     "chai": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "istanbul": "*"
   },
   "author": "alexandrenicol",
   "license": "MIT",

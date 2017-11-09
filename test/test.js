@@ -127,6 +127,33 @@ describe('AWSLambdaRouter - execution stage', function () {
 
   })
 
+  it('should use default body type and response type if not set', function() {
+    const app = new AWSLambdaRouter();
+    app.route('POST','/', (request, response) => {
+      const param = request.body;
+      response(null, {test: param.foo});
+    });
+
+    const event = {
+      httpMethod: 'POST',
+      path: '/',
+      body: JSON.stringify({foo: 'bar'})
+    };
+
+    const assertCallback = (something, response) => {
+      assert.equal(something, null);
+      const expectedResponse = {
+        statusCode: '200',
+        body: JSON.stringify({test: 'bar'}),
+        headers: { 'Content-Type': 'application/json' }
+      }
+      assert.deepEqual(response, expectedResponse)
+    }
+
+    app.serve(event, assertCallback);
+
+  })
+
   it('should take in consideration functions options', function() {
     const app = new AWSLambdaRouter();
     app.route('POST','/', (request, response) => {
@@ -148,6 +175,36 @@ describe('AWSLambdaRouter - execution stage', function () {
       const expectedResponse = {
         statusCode: '200',
         body: '<div>foo:bar</div>',
+        headers: { 'Content-Type': 'text/html' }
+      }
+      assert.deepEqual(response, expectedResponse)
+    }
+
+    app.serve(event, assertCallback);
+
+  })
+
+  it('should send back raw body if the type is not supported', function() {
+    const app = new AWSLambdaRouter();
+    app.route('POST','/', (request, response) => {
+      const body = request.body;
+      response(null, `<div>foo:${body}</div>`);
+    }, {
+      bodyType: 'text/raw',
+      responseType: 'text/html'
+    });
+
+    const event = {
+      httpMethod: 'POST',
+      path: '/',
+      body: 'Hello World'
+    };
+
+    const assertCallback = (something, response) => {
+      assert.equal(something, null);
+      const expectedResponse = {
+        statusCode: '200',
+        body: '<div>foo:Hello World</div>',
         headers: { 'Content-Type': 'text/html' }
       }
       assert.deepEqual(response, expectedResponse)

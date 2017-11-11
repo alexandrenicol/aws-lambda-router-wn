@@ -3,13 +3,13 @@ HTTP Router for AWS Lambda + AWS API Gateway.
 
 DO NOT CLONE
 
-WORK IN PROGRESS 
+WORK IN PROGRESS
 
 TODO:
 - [x] Quick start documentation
 - [x] Quick start api gateway picture
-- [ ] Query string test
-- [ ] Default response
+- [x] Query string test
+- [ ] 404 response
 - [ ] Class documentation
 - [ ] Real use case example
 

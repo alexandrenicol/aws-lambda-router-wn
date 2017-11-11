@@ -25,6 +25,14 @@ class AWSLambdaRouter {
 
     const method = this.event.httpMethod.toLowerCase();
 
+    if (!this.functions[method][path]) {
+      const err = new Error(`Route '${path}' does not exist or does not handle '${method}' method`);
+      err.code = '404';
+      const response = this.__done.bind(this)
+      response({}, err, null);
+      return
+    }
+
     const functionToLaunch = this.functions[method][path].callback;
     const functionOptions = this.functions[method][path].options;
 
@@ -108,8 +116,8 @@ class AWSLambdaRouter {
       response = JSON.stringify(_res);
     }
     this.callback(null, {
-      statusCode: _err ? '400' : '200',
-      body: _err ? _err.message : response,
+      statusCode: _err ? _err.code : '200',
+      body: _err ? _err.toString() : response,
       headers: {
         'Content-Type': responseType,
       },

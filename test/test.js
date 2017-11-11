@@ -243,4 +243,30 @@ describe('AWSLambdaRouter - execution stage', function () {
     app.serve(event, assertCallback);
 
   })
+
+  it('should return 404 if the route is unknown', function() {
+    const app = new AWSLambdaRouter();
+    app.route('GET','/', (request, response) => {
+      const params = request.queryStringParameters;
+      response(null, {response: 'ok'});
+    });
+
+    const event = {
+      httpMethod: 'GET',
+      path: '/test'
+    };
+
+    const assertCallback = (something, response) => {
+      assert.equal(something, null);
+      const expectedResponse = {
+        statusCode: '404',
+        body: "Error: Route '/test' does not exist or does not handle 'get' method",
+        headers: { 'Content-Type': 'application/json' }
+      }
+      assert.deepEqual(response, expectedResponse)
+    }
+
+    app.serve(event, assertCallback);
+
+  })
 })

@@ -9,7 +9,7 @@ TODO:
 - [x] Quick start documentation
 - [x] Quick start api gateway picture
 - [x] Query string test
-- [ ] 404 response
+- [x] 404 response
 - [ ] Class documentation
 - [ ] Real use case example
 

@@ -213,4 +213,34 @@ describe('AWSLambdaRouter - execution stage', function () {
     app.serve(event, assertCallback);
 
   })
+
+  it('should support query string parameters', function() {
+    const app = new AWSLambdaRouter();
+    app.route('GET','/', (request, response) => {
+      const params = request.queryStringParameters;
+      response(null, `<div>${params.test1} ${params.test2}</div>`);
+    }, {responseType: 'text/html'});
+
+    const event = {
+      httpMethod: 'GET',
+      path: '/',
+      queryStringParameters: {
+        test1: "hello",
+        test2: "world"
+      },
+    };
+
+    const assertCallback = (something, response) => {
+      assert.equal(something, null);
+      const expectedResponse = {
+        statusCode: '200',
+        body: '<div>hello world</div>',
+        headers: { 'Content-Type': 'text/html' }
+      }
+      assert.deepEqual(response, expectedResponse)
+    }
+
+    app.serve(event, assertCallback);
+
+  })
 })

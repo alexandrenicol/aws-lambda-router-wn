@@ -1,3 +1,4 @@
+'use strict';
 
 class AWSLambdaRouter {
   constructor(){

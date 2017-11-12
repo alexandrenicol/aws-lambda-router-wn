@@ -10,7 +10,8 @@ TODO:
 - [x] Quick start api gateway picture
 - [x] Query string test
 - [x] 404 response
-- [ ] Class documentation
+- [x] Class documentation
+- [ ] Headers test
 - [ ] Real use case example
 
 [![Build Status](https://travis-ci.org/alexandrenicol/aws-lambda-router-wn.png?branch=master)](https://travis-ci.org/alexandrenicol/aws-lambda-router-wn)

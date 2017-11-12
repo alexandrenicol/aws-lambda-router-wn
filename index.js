@@ -9,11 +9,7 @@ class AWSLambdaRouter {
       get: {},
       put: {},
       delete: {},
-      head: {},
-      connect:{},
-      patch: {},
-      trace: {},
-      options: {}
+      patch: {}
     };
   }
 
@@ -114,6 +110,9 @@ class AWSLambdaRouter {
     if (__options.responseType) responseType = __options.responseType;
     if (responseType === 'application/json'){
       response = JSON.stringify(_res);
+    }
+    if (_err) {
+      if (!_err.code) _err.code = '500';
     }
     this.callback(null, {
       statusCode: _err ? _err.code : '200',

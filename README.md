@@ -1,24 +1,13 @@
-# aws-lambda-router-wn
+![AWSLambdaRouter](https://s3-eu-west-1.amazonaws.com/static-webnicol/github/aws-lambda-router-wn/AWSLambdaRouterOrange.png)
+
+# AWSLambdaRouter
 HTTP Router for AWS Lambda + AWS API Gateway.
-
-DO NOT CLONE
-
-WORK IN PROGRESS
-
-TODO:
-- [x] Quick start documentation
-- [x] Quick start api gateway picture
-- [x] Query string test
-- [x] 404 response
-- [x] Class documentation
-- [ ] Headers test
-- [ ] Real use case example
 
 [![Build Status](https://travis-ci.org/alexandrenicol/aws-lambda-router-wn.png?branch=master)](https://travis-ci.org/alexandrenicol/aws-lambda-router-wn)
 [![codecov](https://codecov.io/gh/alexandrenicol/aws-lambda-router-wn/branch/master/graph/badge.svg)](https://codecov.io/gh/alexandrenicol/aws-lambda-router-wn)
 
-## What is aws-lambda-router-wn?
-aws-lambda-router-wn is a simple HTTP router inspired by Express.js router's syntax. It allows you to transfer your stateless Express application to an AWS Lambda using the proxy integration of AWS API Gateway.
+## What is AWSLambdaRouter?
+AWSLambdaRouter is a simple HTTP router inspired by Express.js router's syntax. It allows you to transfer your stateless Express application to an AWS Lambda using the proxy integration of AWS API Gateway.
 
 ## Quickstart - Hello World
 1. First, create your AWS Lambda, the name is up to you, but you'll need to remember it for the next steps.
@@ -57,3 +46,6 @@ exports.handler = (event, context, callback) => {
 8. In the end, you should have something similar for your two ANY method, like this image below:
 ![final](https://s3-eu-west-1.amazonaws.com/static-webnicol/github/aws-lambda-router-wn/slash-any.png)
 9. Use the actions button to deploy your API.
+
+# Full documentation
+[https://alexandrenicol.github.com/aws-lambda-router-wn](https://alexandrenicol.github.com/aws-lambda-router-wn)

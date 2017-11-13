@@ -275,6 +275,9 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#api-gateway-configuration" class="toc-h1 toc-link" data-title="API Gateway Configuration">API Gateway Configuration</a>
+          </li>
       </div>
         <ul class="toc-footer">
             <li><a href='https://github.com/alexandrenicol/aws-lambda-router-wn'>See on github</a></li>
@@ -575,6 +578,21 @@ AWSLambdaRouter will automatically decode requests with 'application/x-www-form-
 <span class="p">});</span>
 </code></pre>
 <p>In the <strong>callback</strong> function, you can retrieve headers in the <strong>request.body</strong> object.</p>
+<h1 id='api-gateway-configuration'>API Gateway Configuration</h1>
+<ol>
+<li>First, create a new API on AWS API Gateway (it&#39;s important that you use 1 API for 1 AWSLambdaRouter).</li>
+<li>You should have a &#39;/&#39; route with no methods configured, create a new resource using the actions button.</li>
+<li>Click on <code>configure as proxy resource</code> and leave the field as they are, enable the CORS configuration if you wish (this will add OPTIONS route). You should have something similar to the image below:
+<img src="https://s3-eu-west-1.amazonaws.com/static-webnicol/github/aws-lambda-router-wn/new-child-res.png" alt="proxy resource" /></li>
+<li>Click on create, you should be redirect to the configuration of the ANY method, configure it as a Lambda proxy, and enter the name of your lambda, like below:
+<img src="https://s3-eu-west-1.amazonaws.com/static-webnicol/github/aws-lambda-router-wn/proxy-setup.png" alt="any setup" /></li>
+<li>Click on save, select the &#39;/&#39; route and click on the actions button to create a new ANY method (this time for the &#39;/&#39; route, not &#39;/{proxy+}&#39;.</li>
+<li>Configure the new ANY method like the previous one.</li>
+<li>Enable CORS on the &#39;/&#39; route if needed.</li>
+<li>In the end, you should have something similar for your two ANY method, like this image below:
+<img src="https://s3-eu-west-1.amazonaws.com/static-webnicol/github/aws-lambda-router-wn/slash-any.png" alt="final" /></li>
+<li>Use the actions button to deploy your API.</li>
+</ol>
 
       </div>
       <div class="dark-box">

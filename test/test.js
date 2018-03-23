@@ -127,6 +127,63 @@ describe('AWSLambdaRouter - execution stage', function () {
 
   })
 
+  it('should bring cors headers if required', function() {
+    const app = new AWSLambdaRouter();
+    app.useCors();
+    app.route('GET','test', (request, response) => {
+      response(null, true);
+    });
+
+    const event = {
+      httpMethod: 'GET',
+      path: '/test'
+    };
+
+    const assertCallback = (something, response) => {
+      assert.equal(something, null);
+      const expectedResponse = {
+        statusCode: '200',
+        body: 'true',
+        headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true
+        }
+      }
+      assert.deepEqual(response, expectedResponse)
+    }
+
+    app.serve(event, assertCallback);
+
+  })
+  it('should not bring cors headers if required not to', function() {
+    const app = new AWSLambdaRouter();
+    app.useCors(false);
+    app.route('GET','test', (request, response) => {
+      response(null, true);
+    });
+
+    const event = {
+      httpMethod: 'GET',
+      path: '/test'
+    };
+
+    const assertCallback = (something, response) => {
+      assert.equal(something, null);
+      const expectedResponse = {
+        statusCode: '200',
+        body: 'true',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      assert.deepEqual(response, expectedResponse)
+    }
+
+    app.serve(event, assertCallback);
+
+  })
+
   it('should use default body type and response type if not set', function() {
     const app = new AWSLambdaRouter();
     app.route('POST','/', (request, response) => {

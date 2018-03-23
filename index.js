@@ -4,6 +4,7 @@ class AWSLambdaRouter {
   constructor(){
     this.responseType = 'application/json';
     this.bodyType = 'application/json';
+    this.cors = false;
     this.functions = {
       post: {},
       get: {},
@@ -62,6 +63,10 @@ class AWSLambdaRouter {
     this.route('delete', _path, _callback, _options)
   }
 
+  useCors(option = true) {
+    this.cors = option;
+  }
+
   __formatRequest(options) {
     let request = this.event.body;
     if (request) {
@@ -114,12 +119,17 @@ class AWSLambdaRouter {
     if (_err) {
       if (!_err.code) _err.code = '500';
     }
+    let headers = {
+      'Content-Type': responseType
+    };
+    if (this.cors) {
+      headers["Access-Control-Allow-Origin"] = "*";
+      headers["Access-Control-Allow-Credentials"] = true;
+    }
     this.callback(null, {
       statusCode: _err ? _err.code : '200',
       body: _err ? _err.toString() : response,
-      headers: {
-        'Content-Type': responseType,
-      },
+      headers: headers
     })
   }
 

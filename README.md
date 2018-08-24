@@ -33,7 +33,7 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-### API Gateway Configuration
+### API Gateway Configuration (Recommended)
 1. First, create a new API on AWS API Gateway (it's important that you use 1 API for 1 AWSLambdaRouter).
 2. You should have a '/' route with no methods configured, create a new resource using the actions button.
 3. Click on `configure as proxy resource` and leave the field as they are, enable the CORS configuration if you wish (this will add OPTIONS route). You should have something similar to the image below:

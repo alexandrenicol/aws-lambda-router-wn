@@ -390,12 +390,6 @@ AWSLambdaRouter supports GET, POST, PUT, PATCH, and DELETE methods.
 <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/example/hello/world'</span><span class="p">,</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="nx">response</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="na">text</span><span class="p">:</span> <span class="s1">'hello world'</span><span class="p">});</span>
 <span class="p">});</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/?id=1'</span><span class="p">,</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">response</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="na">text</span><span class="p">:</span> <span class="s1">'hello world'</span><span class="p">});</span>
-<span class="p">});</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/example?id=1&amp;name=John'</span><span class="p">,</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">response</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="na">text</span><span class="p">:</span> <span class="s1">'hello world'</span><span class="p">});</span>
-<span class="p">});</span>
 </code></pre>
 <p>Here are some examples of the paths you can use to declare your route.</p>
 <h1 id='callback-functions'>Callback functions</h1>
@@ -545,13 +539,16 @@ AWSLambdaRouter supports GET, POST, PUT, PATCH, and DELETE methods.
 <td>Sets the Content-Type of the response for this route.</td>
 </tr>
 </tbody></table>
-<h1 id='retrieve-parameters'>Retrieve parameters</h1><h2 id='query-string-parameters'>Query string parameters</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/example?id=1&amp;name=John'</span><span class="p">,</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<h1 id='retrieve-parameters'>Retrieve parameters</h1><h2 id='query-string-parameters'>Query string parameters</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// When GET /example?id=1&amp;name=John is sent</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/example'</span><span class="p">,</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">queryStringParameters</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
   <span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">queryStringParameters</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
   <span class="nx">response</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="na">text</span><span class="p">:</span> <span class="s2">`Hello </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">`</span><span class="p">});</span> <span class="c1">//'Hello John'</span>
 <span class="p">});</span>
 </code></pre>
-<p>In the <strong>callback</strong> function, you can retrieve query string parameters in the <strong>request.queryStringParameters</strong> object.</p>
+<p>In the <strong>callback</strong> function, you can retrieve query string parameters in the <strong>request.queryStringParameters</strong> object.
+You don&#39;t need to specify the parameters that will be required in the route configuration.</p>
 <h2 id='body-parameters'>Body parameters</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/example'</span><span class="p">,</span> <span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
   <span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>

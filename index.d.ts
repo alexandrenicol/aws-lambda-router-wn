@@ -8,6 +8,8 @@ export type MethodHandler = (path: string, response: Responder, options?: Option
 
 export default class AWSLambdaRouter {
 
+  constructor()
+
   public serve: (event: APIGatewayEvent, callback: APIGatewayProxyCallback)=> void
 
   public get: MethodHandler

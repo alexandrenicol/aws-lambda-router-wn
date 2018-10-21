@@ -6,7 +6,7 @@ export interface Options {responseType: string, bodyType: string}
 
 export type MethodHandler = (path: string, response: Responder, options?: Options)=> void
 
-export default class AWSLambdaRouter {
+declare class AWSLambdaRouter {
 
   constructor()
 
@@ -22,4 +22,4 @@ export default class AWSLambdaRouter {
 }
 
 
-
+export default AWSLambdaRouter

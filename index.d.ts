@@ -6,23 +6,18 @@ export interface Options {responseType: string, bodyType: string}
 
 export type MethodHandler = (path: string, response: Responder, options?: Options)=> void
 
-export interface AWSLambdaRouter {
+export default class AWSLambdaRouter {
 
-  serve: (event: APIGatewayEvent, callback: APIGatewayProxyCallback)=> void,
+  public serve: (event: APIGatewayEvent, callback: APIGatewayProxyCallback)=> void
 
-  get: MethodHandler,
+  public get: MethodHandler
 
-  post: MethodHandler,
+  public post: MethodHandler
 
-  delete: MethodHandler,
+  public delete: MethodHandler
 
-  useCors: (option: boolean)=> void
+  public useCors: (option: boolean)=> void
 }
-
-
-declare function router(): AWSLambdaRouter;
-
-export default router
 
 
 

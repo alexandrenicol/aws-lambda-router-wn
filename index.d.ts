@@ -1,6 +1,6 @@
-import { APIGatewayEvent, ProxyResult, APIGatewayProxyCallback } from "aws-lambda"
+import { APIGatewayEvent, APIGatewayProxyResult, Callback } from "aws-lambda"
 
-export type Responder = (err: Error, data: string | ProxyResult)=> void
+export type Responder = (err: Error, data: string | {})=> void
 
 export interface Options {responseType: string, bodyType: string}
 
@@ -10,7 +10,7 @@ export type MethodHandler = (path: string, handler: RouteHandler, options?: Opti
 
 declare class AWSLambdaRouter {
   constructor()
-  public serve: (event: APIGatewayEvent, callback: APIGatewayProxyCallback)=> void
+  public serve: (event: APIGatewayEvent, callback: Callback<APIGatewayProxyResult>)=> void
   public get: MethodHandler
   public post: MethodHandler
   public delete: MethodHandler

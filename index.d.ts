@@ -1,6 +1,6 @@
 import { APIGatewayEvent, APIGatewayProxyResult, Callback } from "aws-lambda"
 
-export type Responder = (err: Error, data: string | {})=> void
+export type Responder = (err: Error, data?: string | {})=> void
 
 export interface Options {responseType: string, bodyType: string}
 

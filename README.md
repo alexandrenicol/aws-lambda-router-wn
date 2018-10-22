@@ -47,5 +47,10 @@ exports.handler = (event, context, callback) => {
 ![final](https://s3-eu-west-1.amazonaws.com/static-webnicol/github/aws-lambda-router-wn/slash-any.png)
 9. Use the actions button to deploy your API.
 
-# Full documentation
+## Full documentation
 [https://alexandrenicol.github.com/aws-lambda-router-wn](https://alexandrenicol.github.com/aws-lambda-router-wn)
+
+
+## Changelog
+### 2018/10/22: 0.10.0
+Added TypeScript definitions (Thanks @danenania)

@@ -116,7 +116,7 @@ describe('AWSLambdaRouter - execution stage', function () {
     const assertCallback = (something, response) => {
       assert.equal(something, null);
       const expectedResponse = {
-        statusCode: '200',
+        statusCode: 200,
         body: 'true',
         headers: { 'Content-Type': 'application/json' }
       }
@@ -142,7 +142,7 @@ describe('AWSLambdaRouter - execution stage', function () {
     const assertCallback = (something, response) => {
       assert.equal(something, null);
       const expectedResponse = {
-        statusCode: '200',
+        statusCode: 200,
         body: 'true',
         headers: {
           'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ describe('AWSLambdaRouter - execution stage', function () {
     const assertCallback = (something, response) => {
       assert.equal(something, null);
       const expectedResponse = {
-        statusCode: '200',
+        statusCode: 200,
         body: 'true',
         headers: {
           'Content-Type': 'application/json'
@@ -200,7 +200,7 @@ describe('AWSLambdaRouter - execution stage', function () {
     const assertCallback = (something, response) => {
       assert.equal(something, null);
       const expectedResponse = {
-        statusCode: '200',
+        statusCode: 200,
         body: JSON.stringify({test: 'bar'}),
         headers: { 'Content-Type': 'application/json' }
       }
@@ -230,7 +230,7 @@ describe('AWSLambdaRouter - execution stage', function () {
     const assertCallback = (something, response) => {
       assert.equal(something, null);
       const expectedResponse = {
-        statusCode: '200',
+        statusCode: 200,
         body: '<div>foo:bar</div>',
         headers: { 'Content-Type': 'text/html' }
       }
@@ -260,7 +260,7 @@ describe('AWSLambdaRouter - execution stage', function () {
     const assertCallback = (something, response) => {
       assert.equal(something, null);
       const expectedResponse = {
-        statusCode: '200',
+        statusCode: 200,
         body: '<div>foo:Hello World</div>',
         headers: { 'Content-Type': 'text/html' }
       }
@@ -290,7 +290,7 @@ describe('AWSLambdaRouter - execution stage', function () {
     const assertCallback = (something, response) => {
       assert.equal(something, null);
       const expectedResponse = {
-        statusCode: '200',
+        statusCode: 200,
         body: '<div>hello world</div>',
         headers: { 'Content-Type': 'text/html' }
       }
@@ -316,7 +316,7 @@ describe('AWSLambdaRouter - execution stage', function () {
     const assertCallback = (something, response) => {
       assert.equal(something, null);
       const expectedResponse = {
-        statusCode: '404',
+        statusCode: 404,
         body: "Error: Route '/test' does not exist or does not handle 'get' method",
         headers: { 'Content-Type': 'application/json' }
       }

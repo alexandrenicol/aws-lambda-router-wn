@@ -24,7 +24,7 @@ class AWSLambdaRouter {
 
     if (!this.functions[method][path]) {
       const err = new Error(`Route '${path}' does not exist or does not handle '${method}' method`);
-      err.code = '404';
+      err.code = 404;
       const response = this.__done.bind(this)
       response({}, err, null);
       return
@@ -117,7 +117,7 @@ class AWSLambdaRouter {
       response = JSON.stringify(_res);
     }
     if (_err) {
-      if (!_err.code) _err.code = '500';
+      if (!_err.code) _err.code = 500;
     }
     let headers = {
       'Content-Type': responseType
@@ -127,7 +127,7 @@ class AWSLambdaRouter {
       headers["Access-Control-Allow-Credentials"] = true;
     }
     this.callback(null, {
-      statusCode: _err ? _err.code : '200',
+      statusCode: _err ? _err.code : 200,
       body: _err ? _err.toString() : response,
       headers: headers
     })

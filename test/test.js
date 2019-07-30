@@ -241,6 +241,44 @@ describe('AWSLambdaRouter - execution stage', function () {
 
   })
 
+  it('should take in consideration custom headers', function () {
+    const app = new AWSLambdaRouter();
+    app.route('POST', '/', (request, response) => {
+      const param = request.body;
+      response(null, `<div>foo:${param.foo}</div>`);
+    }, {
+        bodyType: 'application/x-www-form-urlencoded',
+        responseType: 'text/html',
+        headers: {
+          customHeader: 'test-customHeader',
+          'another-one': 'test-another-one'
+        }
+      });
+
+    const event = {
+      httpMethod: 'POST',
+      path: '/',
+      body: 'foo=bar'
+    };
+
+    const assertCallback = (something, response) => {
+      assert.equal(something, null);
+      const expectedResponse = {
+        statusCode: 200,
+        body: '<div>foo:bar</div>',
+        headers: {
+          'Content-Type': 'text/html',
+          customHeader: 'test-customHeader',
+          'another-one': 'test-another-one'
+        }
+      }
+      assert.deepEqual(response, expectedResponse)
+    }
+
+    app.serve(event, assertCallback);
+
+  })
+
   it('should send back raw body if the type is not supported', function() {
     const app = new AWSLambdaRouter();
     app.route('POST','/', (request, response) => {

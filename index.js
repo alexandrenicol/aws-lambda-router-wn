@@ -5,6 +5,7 @@ class AWSLambdaRouter {
     this.responseType = 'application/json';
     this.bodyType = 'application/json';
     this.cors = false;
+    this.headers = {};
     this.functions = {
       post: {},
       get: {},
@@ -111,25 +112,34 @@ class AWSLambdaRouter {
 
   __done(__options, _err, _res) {
     let response = _res;
+
     let responseType = this.responseType;
     if (__options.responseType) responseType = __options.responseType;
+    this.headers['Content-Type'] = responseType;
+
+    if (__options.headers) {
+      for (const key in __options.headers) {
+        if (__options.headers.hasOwnProperty(key)) {
+          const value = __options.headers[key];
+          this.headers[key] = value;
+        }
+      }
+    }
+
     if (responseType === 'application/json'){
       response = JSON.stringify(_res);
     }
     if (_err) {
       if (!_err.code) _err.code = 500;
     }
-    let headers = {
-      'Content-Type': responseType
-    };
     if (this.cors) {
-      headers["Access-Control-Allow-Origin"] = "*";
-      headers["Access-Control-Allow-Credentials"] = true;
+      this.headers["Access-Control-Allow-Origin"] = "*";
+      this.headers["Access-Control-Allow-Credentials"] = true;
     }
     this.callback(null, {
       statusCode: _err ? _err.code : 200,
       body: _err ? _err.toString() : response,
-      headers: headers
+      headers: this.headers
     })
   }
 

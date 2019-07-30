@@ -1,6 +1,6 @@
 {
   "name": "aws-lambda-router-wn",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "HTTP Router for AWS Lambda+AWS Api Gateway.",
   "main": "index.js",
   "scripts": {
